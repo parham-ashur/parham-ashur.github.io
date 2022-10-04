@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115627522-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-115627522-1');
+    </script>
+
+
+    <title>Data Analytics</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato: 100,300,400,700|Luckiest+Guy|Oxygen:300,400" rel="stylesheet">
+
+    <!-- Mobile specific meta
+    --------------------------------------------------------- -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- LaTeX
+    ---------------------------------------------------------- -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://example.com/mathjax/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+
+    <!-- CSS 
+    --------------------------------------------------------- -->
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/skeleton.css">
+    <link rel="stylesheet" href="../css/custom.css">
+    <link href="../css/style.css" type="text/css" rel="stylesheet">
+
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+
+</head>
+
+<body>
+    <!-- NavBar 
+    --------------------------------------------------------- -->
+    <div class="navbar-spacer"></div>
+    <nav class="navbar">
+        <div class="container">
+            <ul class="navbar-list">
+                <li class="navbar-item"><a class="navbar-link" href="../index.html">Home</a></li>
+                <li class="navbar-item"><a class="navbar-link" href="../code/code.html">Code</a></li>
+                <li class="navbar-item"><a class="navbar-link" href="../resources/resources.html">Resources</a></li>
+                <li class="navbar-item"><a class="navbar-link" href="../blog/blog.html">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- First Block 
+    --------------------------------------------------------- -->
+    <div class="container">
+        <div class="row">
+            <div class="eight columns">
+                <h3 id="dataVisualizationEye">Data Visualization | Eye-tracking Data Stream</h3>
+                <h6>March 2019</h6>
+                <hr>
+                <p>
+                    In this project, I replicate a paper [<a href="https://onlinelibrary.wiley.com/doi/full/10.1111/cdev.13113" target="_blank">Here</a>] that I'm working on an extension to it. In this paper, authors investigated whether children create predictions about the distribution of syntactic categories in a new environment, and draw on these to acquire word meanings. They found that children who heard examples of la petite + familiar verbs were more likely to infer that a novel word produced after la petite referred to an action, than children who heard la petite + familiar nouns sentences. This suggests that children did not only rapidly adapt their expectation to encounter a specific syntactic category, but also utilise their adapted predictions to learn. Children from the verb-condition (M = 0.602, SD = 0.117), are significantly more likely to look at the action video than children from the noun-condition (M = 0.482, SD = 0.139), suggesting that children from the verb-condition were more likely to interpret the novel word as referring to the action than children in the noun-condition (Figure.1).<br><br><br>
+                    <img class="ttest_plot_Eye" src="../images/ttest_plot_Eye.jpg"> <br>Figure.1 Mean overall proportion of looks towards the action video in the test phase for the two condition<br><br><br>
+                    Proportion of looks towards the action-video, as a function of time, plotted for the entire duration of the trial (verb-condition in blue, noun-condition in red, Figure.2).<br><br>
+                    <img class="plot_EyeTracking" src="../images/plot_EyeTracking.jpg"> <br> Figure.2 Proportion of looks towards the action video in the test phase for the two conditions <br><br>
+                    [for R codes follow the <a href="https://github.com/parhamashur/Data-Visualization/blob/4d6df30e43337ea9751875db5bf996197b10aa63/plot_EyeTracking.R" target="_blank">link</a> to my Github]</p>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="eight columns">
+                <h3 id="dataVisualizationParis">Data Visualization | Paris Weather in 2018</h3>
+                <h6>March 2019</h6>
+                <hr>
+                <p>
+                    In this project, I compared graphically Paris average daily temperature (2018) to the aggregated average temperature data since 1995. <br><br>
+                    <img class="weather_plot" src="../images/ParisWeather_2018W.png"> <br><br>
+                    Data is obtained from the University of Dayton's <a href="http://academic.udayton.edu/kissock/http/Weather/" target="_blank">Average Daily Temperature Archive</a>. This project is a reproduction of a work by Brad Boehmke in a blog [<a href="https://rpubs.com/bradleyboehmke/weather_graphic" target="_blank">link</a>] on weather visualization. [for R codes follow the <a href="https://github.com/parhamashur/Data-Visualization/blob/4d6df30e43337ea9751875db5bf996197b10aa63/ParisWeatherVisual.R" target="_blank">link</a> to my Github]</p>
+            </div>
+        </div>
+    </div>
+    <!----------------------------SIDE BAR -------------------------------------------------------------------------------------------->
+    <div id="sidebar">
+        <ul>
+            <li><a href="#dataVisualizationEye">■ Data Visualization | Eye-tracking Data Stream</a></li><br>
+            <li><a href="#dataVisualizationParis">■ Data Visualization | Paris Weather</a></li><br>
+            <!--      <li><a href="#">About Me</a></li><br>
+          <li><a href="#">Recent Posts</a></li><br>
+          <li><a href="#">Contact</a></li>     -->
+        </ul>
+    </div>
+    <!----------------------------FOOTER
+    -------------------------------------------------------------------------------------------->
+    <div class="footer">
+        <div class="row">
+            <div class="four columns">
+                <h6 class="footer_h6">Contact</h6>
+                <p class="footer_h6">
+                    &#x02609 parham.ashur[at]etu-univ1[dot]fr
+                    <br>
+                    &#x02609 29 rue d'Ulm, Paris</p>
+            </div>
+            <div class="three columns">
+                <h6 class="footer_h6">Code</h6>
+                <p class="footer_h6">
+                    <a href="code/code.html#r" id="linkcolor_footer">&#10070 R</a><br>
+                    <!--  <a href="code/code.html#c" id="linkcolor_footer">&#10070 C for Arduino</a><br> -->
+                    <a href="code/code.html#shell" id="linkcolor_footer"> &#10070 Shell Script</a><br>
+                    <a href="code/code.html#python" id="linkcolor_footer">&#10070 Python</a><br>
+                    <a href="code/code.html#stata" id="linkcolor_footer">&#10070 Stata</a><br></p>
+            </div>
+            <div class="three columns">
+                <h6 class="footer_h6">Resources</h6>
+                <p class="footer_h6">
+                    <a href="https://learnpythonthehardway.org/book/" target="_blank" id="linkcolor_footer">&#10070 Learn Python</a><br>
+                    <a href="https://www.latex-tutorial.com" target="_blank" id="linkcolor_footer">&#10070 Learn Latex</a><br>
+                    <a href="https://swirlstats.com" target="_blank" id="linkcolor_footer">&#10070 Learn R</a><br>
+                </p>
+            </div>
+            <div class="two columns">
+                <h6 class="footer_h6">Links</h6>
+                <p class="footer_h6">
+                    <a href="https://www.upwork.com/o/profiles/users/_~016515787f8dbe61ea/" target="_blank" id="linkcolor_footer">&#10070 Upwork</a><br>
+
+                    <a href="https://github.com/parhamashur" target="_blank" id="linkcolor_footer">&#10070 Github</a><br>
+                    <!--        <a href="https://www.latex-tutorial.com" target="_blank" id="linkcolor_footer">&#10070 Learn Latex</a><br>
+                    <a href="https://swirlstats.com" target="_blank" id="linkcolor_footer">&#10070 Learn R</a><br> -->
+                </p>
+            </div>
+        </div>
+    </div>
+
+</body></html>
