@@ -2593,15 +2593,6 @@ input, select, textarea {
 		background-color: black;
 		justify-content: space-between;
 		background-attachment: scroll,								scroll;
-		background-image: linear-gradient(
-			rgba(0, 0, 0, 0.0) 0%,
-			rgba(0, 0, 0, 0.0) 50%,
-			rgba(0, 0, 0, 0.2) 60%,
-			rgba(0, 0, 0, 0.7) 70%,
-			rgba(0, 0, 0, 0.9) 85%,
-			rgba(0, 0, 0, 1.0) 95%
-		  ),
-		url("../../images/bg.jpg");
 		background-position: top left,							top left;
 		background-repeat: no-repeat;
 		background-size: cover;
@@ -2995,6 +2986,18 @@ input, select, textarea {
 				font-size: 12pt;
 			}
 
+			#header {
+				background-image: linear-gradient(
+					rgba(0, 0, 0, 0.0) 0%,
+					rgba(0, 0, 0, 0.0) 50%,
+					rgba(0, 0, 0, 0.2) 60%,
+					rgba(0, 0, 0, 0.7) 70%,
+					rgba(0, 0, 0, 0.9) 85%,
+					rgba(0, 0, 0, 1.0) 95%
+				  ),
+				url("../../images/bg.jpg");
+			}
+
 	}
 
 /* Large */
@@ -3006,6 +3009,15 @@ input, select, textarea {
 			#header {
 				padding: 6em 3em 3em 3em;
 				width: 30%;
+				background-image: linear-gradient(
+					rgba(0, 0, 0, 0.0) 0%,
+					rgba(0, 0, 0, 0.0) 50%,
+					rgba(0, 0, 0, 0.2) 60%,
+					rgba(0, 0, 0, 0.7) 70%,
+					rgba(0, 0, 0, 0.9) 85%,
+					rgba(0, 0, 0, 1.0) 95%
+				  ),
+				url("../../images/bg.jpg");
 			}
 
 				#header h1 {
@@ -3070,6 +3082,15 @@ input, select, textarea {
 				top: auto;
 				width: 100%;
 				display: block;
+				background-image: linear-gradient(
+					rgba(0, 0, 0, 0.0) 0%,
+					rgba(0, 0, 0, 0.0) 50%,
+					rgba(0, 0, 0, 0.2) 60%,
+					rgba(0, 0, 0, 0.7) 70%,
+					rgba(0, 0, 0, 0.9) 85%,
+					rgba(0, 0, 0, 1.0) 95%
+				  ),
+				url("../../images/bg.jpg");
 			}
 
 				#header h1 {
@@ -3164,8 +3185,21 @@ input, select, textarea {
 		/* Header */
 
 			#header {
-				background-image: url("../../images/bg4.jpg");
 				background-size: cover;
+				background-position: center center;
+				background-attachment: fixed;
+				background-repeat: no-repeat; 
+				background-image: linear-gradient(
+					rgba(0, 0, 0, 0.0) 0%,
+					rgba(0, 0, 0, 0.0) 50%,
+					rgba(0, 0, 0, 0.2) 60%,
+					rgba(0, 0, 0, 0.7) 70%,
+					rgba(0, 0, 0, 0.9) 85%,
+					rgba(0, 0, 0, 1.0) 95%
+				  ),
+				url("../../images/bg4.jpg");
+				padding-top: 350px;
+
 			}
 
 				#header h1 {
@@ -3209,7 +3243,22 @@ input, select, textarea {
 		/* Header */
 
 			#header {
-				background-image: url("../../images/bg5.jpg");
+				background-position: center center;
+  				background-attachment: fixed;
+  				background-repeat: no-repeat; background-size: cover;
+				  background-image: linear-gradient(
+					rgba(0, 0, 0, 0.0) 0%,
+					rgba(0, 0, 0, 0.0) 50%,
+					rgba(0, 0, 0, 0.2) 60%,
+					rgba(0, 0, 0, 0.7) 70%,
+					rgba(0, 0, 0, 0.9) 85%,
+					rgba(0, 0, 0, 1.0) 95%
+				  ),
+				url("../../images/bg5.jpg");
+				background-color: #efefef00;
+				padding-top: 0px;
+				margin-top: -10px;
+
 			}
 
 				#header h1 br {
