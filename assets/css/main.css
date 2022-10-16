@@ -2995,7 +2995,7 @@ input, select, textarea {
 					rgba(0, 0, 0, 0.9) 85%,
 					rgba(0, 0, 0, 1.0) 95%
 				  ),
-				url("../../images/bg.jpg");
+				url("../../images/bg.webp");
 			}
 
 	}
@@ -3017,7 +3017,7 @@ input, select, textarea {
 					rgba(0, 0, 0, 0.9) 85%,
 					rgba(0, 0, 0, 1.0) 95%
 				  ),
-				url("../../images/bg.jpg");
+				url("../../images/bg.webp");
 			}
 
 				#header h1 {
@@ -3090,7 +3090,7 @@ input, select, textarea {
 					rgba(0, 0, 0, 0.9) 85%,
 					rgba(0, 0, 0, 1.0) 95%
 				  ),
-				url("../../images/bg.jpg");
+				url("../../images/bg.webp");
 			}
 
 				#header h1 {
@@ -3197,7 +3197,7 @@ input, select, textarea {
 					rgba(0, 0, 0, 0.9) 85%,
 					rgba(0, 0, 0, 1.0) 95%
 				  ),
-				url("../../images/bg4.jpg");
+				url("../../images/bg4.webp");
 				padding-top: 350px;
 
 			}
@@ -3254,7 +3254,7 @@ input, select, textarea {
 					rgba(0, 0, 0, 0.9) 85%,
 					rgba(0, 0, 0, 1.0) 95%
 				  ),
-				url("../../images/bg5.jpg");
+				url("../../images/bg5.webp");
 				background-color: #efefef00;
 				padding-top: 0px;
 				margin-top: -10px;
