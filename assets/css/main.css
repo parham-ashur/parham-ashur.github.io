@@ -3033,6 +3033,10 @@ input, select, textarea {
 					font-size: 1.25em;
 				}
 
+					#header h1 br {
+						display: none;
+					}
+
 				#header > .inner {
 					margin-bottom: 0;
 				}
@@ -3060,7 +3064,7 @@ input, select, textarea {
 
 /* Medium */
 
-	@media screen and (max-width: 1100px) {
+	@media screen and (max-width: 980px) {
 
 		/* Basic */
 
