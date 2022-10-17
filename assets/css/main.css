@@ -3008,7 +3008,7 @@ input, select, textarea {
 			}
 
 			#name1{
-				margin-top: 50px;
+				margin-top: 150px;
 			}
 
 	}
@@ -3034,7 +3034,7 @@ input, select, textarea {
 			}
 
 				#header h1 {
-					font-size: 1.25em;
+					font-size: 1.5em;
 				}
 
 					#header h1 br {
@@ -3043,6 +3043,10 @@ input, select, textarea {
 
 				#header > .inner {
 					margin-bottom: 0;
+				}
+
+				#name1{
+					margin-top: 150px;
 				}
 
 		/* Footer */
