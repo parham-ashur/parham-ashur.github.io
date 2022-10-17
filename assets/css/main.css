@@ -2987,7 +2987,7 @@ input, select, textarea {
 
 /* XLarge */
 
-	@media screen and (max-width: 1800px) {
+	@media screen and (max-width: 1400px) {
 
 		/* Basic */
 
@@ -3034,7 +3034,7 @@ input, select, textarea {
 				}
 
 					#header h1 br {
-						
+						display: none;
 					}
 
 				#header > .inner {
