@@ -3254,10 +3254,9 @@ input, select, textarea {
   /* Header: full-screen background image */
   #header {
     height: 100vh; /* Full viewport height */
-    margin: 0;
+    margin: 100;
     padding: 0;
     position: relative;
-    background: url("../../images/parham-2025-mobile.jpg") no-repeat center center;
     background-size: cover;
     background-image: linear-gradient(
       rgba(0, 0, 0, 0.0) 0%,
