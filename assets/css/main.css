@@ -3255,7 +3255,7 @@ input, select, textarea {
   #header {
     height: 100vh; /* Full viewport height */
     margin: 100;
-    padding: 0;
+    padding: 100;
     position: relative;
     background-size: cover;
     background-image: linear-gradient(
