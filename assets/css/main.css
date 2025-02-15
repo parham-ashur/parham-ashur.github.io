@@ -3259,7 +3259,6 @@ input, select, textarea {
     position: relative;
     background: url("../../images/parham-2025-mobile.jpg") no-repeat center center;
     background-size: cover;
-    Optionally, add an overlay gradient by un-commenting the next line:
     background-image: linear-gradient(
       rgba(0, 0, 0, 0.0) 0%,
       rgba(0, 0, 0, 0.0) 50%,
