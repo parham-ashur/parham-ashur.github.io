@@ -3253,7 +3253,7 @@ input, select, textarea {
 @media screen and (max-width: 480px) {
   /* Header */
   #header {
-    height: 100vh; /* Make header fill the entire viewport */
+    height: 100vh;
     background-position: center center;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -3269,15 +3269,16 @@ input, select, textarea {
       ),
       url("../../images/parham-2025-mobile.jpg");
     background-color: transparent;
-    padding: 0;
+    /* Push the content down so the top of the image is visible */
+    padding-top: 50vh;
     margin: 0;
   }
-  
+
   #header h1 br {
     display: none;
   }
-  
-  /* Footer */
+
+  /* Footer adjustments remain the same */
   #footer .copyright li {
     border-left-width: 0;
     display: block;
