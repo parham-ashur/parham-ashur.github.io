@@ -3251,34 +3251,42 @@ input, select, textarea {
 
 /* XSmall */
 @media screen and (max-width: 480px) {
-  /* Header */
+  /* Header: full-screen background image */
   #header {
-    height: 100vh;
-    background-position: center center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-image: 
-      linear-gradient(
-        rgba(0, 0, 0, 0.0) 0%,
-        rgba(0, 0, 0, 0.0) 50%,
-        rgba(0, 0, 0, 0.2) 60%,
-        rgba(0, 0, 0, 0.7) 70%,
-        rgba(0, 0, 0, 0.9) 85%,
-        rgba(0, 0, 0, 1.0) 95%
-      ),
-      url("../../images/parham-2025-mobile.jpg");
-    background-color: transparent;
-    /* Push the content down so the top of the image is visible */
-    padding-top: 100vh;
+    height: 100vh; /* Full viewport height */
     margin: 0;
+    padding: 0;
+    position: relative;
+    background: url("../../images/parham-2025-mobile.jpg") no-repeat center center;
+    background-size: cover;
+    Optionally, add an overlay gradient by un-commenting the next line:
+    background-image: linear-gradient(
+      rgba(0, 0, 0, 0.0) 0%,
+      rgba(0, 0, 0, 0.0) 50%,
+      rgba(0, 0, 0, 0.2) 60%,
+      rgba(0, 0, 0, 0.7) 70%,
+      rgba(0, 0, 0, 0.9) 85%,
+      rgba(0, 0, 0, 1.0) 95%
+    ), url("../../images/parham-2025-mobile.jpg");
   }
 
+  /* Position header text at the bottom */
+  #header .inner {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 1em;
+    /* Optionally add a semi-transparent background for readability:
+    background: rgba(0, 0, 0, 0.5); */
+  }
+
+  /* Optional: remove extra breaks in header headings */
   #header h1 br {
     display: none;
   }
 
-  /* Footer adjustments remain the same */
+  /* Footer adjustments (unchanged) */
   #footer .copyright li {
     border-left-width: 0;
     display: block;
