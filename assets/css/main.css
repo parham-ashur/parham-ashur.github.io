@@ -3270,7 +3270,7 @@ input, select, textarea {
       url("../../images/parham-2025-mobile.jpg");
     background-color: transparent;
     /* Push the content down so the top of the image is visible */
-    padding-top: 50vh;
+    padding-top: 100vh;
     margin: 0;
   }
 
