@@ -21,21 +21,24 @@
     @media (max-width: 767px) {
       .gallery { grid-template-columns: 1fr; }
     }
-    .gallery figure {
-      margin: 0;
+    /* Container for image placeholder and to enforce aspect ratio */
+    .img-container {
+      position: relative;
+      width: 100%;
       aspect-ratio: 1/1;
       overflow: hidden;
+      background: #f0f0f0; /* placeholder bg */
+      border-radius: 4px;
     }
-    .gallery img {
+    .img-container img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      border-radius: 4px;
       opacity: 0;
       transition: opacity 0.5s ease-in;
     }
-    .gallery img.loaded {
+    .img-container img.loaded {
       opacity: 1;
     }
     .gallery figcaption {
@@ -57,7 +60,6 @@
   <!-- include your site’s footer here -->
 
   <script>
-    // Define images and captions
     const images = [
       { src: '/web/photo1.webp', caption: 'Bocconi University, Milan (May 2025)' },
       { src: '/web/photo2.webp', caption: 'Bocconi University, Milan (May 2025)' },
@@ -102,7 +104,6 @@
       { src: '/web/photo41.webp', caption: 'Fondazione Prada, Milan (June 2025)' }
     ];
 
-    // Fisher–Yates shuffle
     function shuffle(arr) {
       for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -111,26 +112,45 @@
       return arr;
     }
 
-    // Render the gallery on load
+    function createFigure({ src, caption }) {
+      const fig = document.createElement('figure');
+      fig.className = 'photo-item';
+
+      const container = document.createElement('div');
+      container.className = 'img-container';
+      const img = document.createElement('img');
+      img.dataset.src = src;
+      img.alt = caption;
+      img.className = 'lazy';
+      container.appendChild(img);
+      fig.appendChild(container);
+
+      const cap = document.createElement('figcaption');
+      cap.textContent = caption;
+      fig.appendChild(cap);
+
+      return fig;
+    }
+
+    function lazyLoad() {
+      const options = { rootMargin: '100px', threshold: 0.1 };
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.addEventListener('load', () => img.classList.add('loaded'));
+            obs.unobserve(img);
+          }
+        });
+      }, options);
+      document.querySelectorAll('img.lazy').forEach(img => observer.observe(img));
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       const gallery = document.getElementById('gallery');
-      shuffle(images).forEach(({ src, caption }) => {
-        const fig = document.createElement('figure');
-        fig.className = 'photo-item';
-
-        const img = document.createElement('img');
-        img.src = src;
-        img.alt = caption;
-        img.loading = 'lazy';
-        img.addEventListener('load', () => img.classList.add('loaded'));
-        fig.appendChild(img);
-
-        const cap = document.createElement('figcaption');
-        cap.textContent = caption;
-        fig.appendChild(cap);
-
-        gallery.appendChild(fig);
-      });
+      shuffle(images).forEach(item => gallery.appendChild(createFigure(item)));
+      lazyLoad();
     });
   </script>
 </body>
