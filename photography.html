@@ -21,13 +21,20 @@
     @media (max-width: 767px) {
       .gallery { grid-template-columns: 1fr; }
     }
-    /* Container for image placeholder and to enforce aspect ratio */
+    /* layout figure and caption */
+    .gallery figure {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+    }
+    /* Container for image placeholder and enforce aspect ratio */
     .img-container {
       position: relative;
       width: 100%;
       aspect-ratio: 1/1;
       overflow: hidden;
-      background: #f0f0f0; /* placeholder bg */
+      background: #f0f0f0;
       border-radius: 4px;
     }
     .img-container img {
@@ -60,97 +67,76 @@
   <!-- include your site’s footer here -->
 
   <script>
+    // Full list of images and captions
     const images = [
-      { src: '/web/photo1.webp', caption: 'Bocconi University, Milan (May 2025)' },
-      { src: '/web/photo2.webp', caption: 'Bocconi University, Milan (May 2025)' },
-      { src: '/web/photo3.webp', caption: 'Bocconi University, Milan (May 2025)' },
-      { src: '/web/photo4.webp', caption: 'Bocconi University, Milan (May 2025)' },
-      { src: '/web/photo5.webp', caption: 'Street in Milan (May 2025)' },
-      { src: '/web/photo6.webp', caption: 'Museo del Novecento (May 2025)' },
-      { src: '/web/photo7.webp', caption: 'Museo del Novecento (May 2025)' },
-      { src: '/web/photo8.webp', caption: 'Museo del Novecento (May 2025)' },
-      { src: '/web/photo9.webp', caption: 'Museo del Novecento (May 2025)' },
-      { src: '/web/photo10.webp', caption: 'Pinacoteca di Brera (May 2025)' },
-      { src: '/web/photo11.webp', caption: 'Villa Necchi Campiglio (May 2025)' },
-      { src: '/web/photo12.webp', caption: 'Villa Necchi Campiglio (May 2025)' },
-      { src: '/web/photo13.webp', caption: 'Milan Conservatory (May 2025)' },
-      { src: '/web/photo14.webp', caption: 'Milan Conservatory (May 2025)' },
-      { src: '/web/photo15.webp', caption: 'Lake Como (June 2025)' },
-      { src: '/web/photo16.webp', caption: 'Lake Como (June 2025)' },
-      { src: '/web/photo17.webp', caption: 'Lake Como (June 2025)' },
-      { src: '/web/photo18.webp', caption: 'Lake Como (June 2025)' },
-      { src: '/web/photo19.webp', caption: 'Museo Pinacoteca Civica (June 2025)' },
-      { src: '/web/photo20.webp', caption: 'Museo Pinacoteca Civica (June 2025)' },
-      { src: '/web/photo21.webp', caption: 'Cityscapes of Milan (June 2025)' },
-      { src: '/web/photo22.webp', caption: 'Cityscapes of Milan (June 2025)' },
-      { src: '/web/photo23.webp', caption: 'Cityscapes of Milan (June 2025)' },
-      { src: '/web/photo24.webp', caption: 'Cityscapes of Milan (June 2025)' },
-      { src: '/web/photo25.webp', caption: 'Bocconi University, Milan (June 2025)' },
-      { src: '/web/photo26.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: '/web/photo27.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: '/web/photo28.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: '/web/photo29.webp', caption: 'Cityscapes of Milan (June 2025)' },
-      { src: '/web/photo30.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: '/web/photo31.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: '/web/photo32.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: '/web/photo33.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: '/web/photo34.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: '/web/photo35.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: '/web/photo36.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: '/web/photo37.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: '/web/photo38.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: '/web/photo39.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: '/web/photo40.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: '/web/photo41.webp', caption: 'Fondazione Prada, Milan (June 2025)' }
+      { src: 'web/photo1.webp', caption: 'Bocconi University, Milan (May 2025)' },
+      { src: 'web/photo2.webp', caption: 'Bocconi University, Milan (May 2025)' },
+      { src: 'web/photo3.webp', caption: 'Bocconi University, Milan (May 2025)' },
+      { src: 'web/photo4.webp', caption: 'Bocconi University, Milan (May 2025)' },
+      { src: 'web/photo5.webp', caption: 'Street in Milan (May 2025)' },
+      { src: 'web/photo6.webp', caption: 'Museo del Novecento (May 2025)' },
+      { src: 'web/photo7.webp', caption: 'Museo del Novecento (May 2025)' },
+      { src: 'web/photo8.webp', caption: 'Museo del Novecento (May 2025)' },
+      { src: 'web/photo9.webp', caption: 'Museo del Novecento (May 2025)' },
+      { src: 'web/photo10.webp', caption: 'Pinacoteca di Brera (May 2025)' },
+      { src: 'web/photo11.webp', caption: 'Villa Necchi Campiglio (May 2025)' },
+      { src: 'web/photo12.webp', caption: 'Villa Necchi Campiglio (May 2025)' },
+      { src: 'web/photo13.webp', caption: 'Milan Conservatory (May 2025)' },
+      { src: 'web/photo14.webp', caption: 'Milan Conservatory (May 2025)' },
+      { src: 'web/photo15.webp', caption: 'Lake Como (June 2025)' },
+      { src: 'web/photo16.webp', caption: 'Lake Como (June 2025)' },
+      { src: 'web/photo17.webp', caption: 'Lake Como (June 2025)' },
+      { src: 'web/photo18.webp', caption: 'Lake Como (June 2025)' },
+      { src: 'web/photo19.webp', caption: 'Museo Pinacoteca Civica (June 2025)' },
+      { src: 'web/photo20.webp', caption: 'Museo Pinacoteca Civica (June 2025)' },
+      { src: 'web/photo21.webp', caption: 'Cityscapes of Milan (June 2025)' },
+      { src: 'web/photo22.webp', caption: 'Cityscapes of Milan (June 2025)' },
+      { src: 'web/photo23.webp', caption: 'Cityscapes of Milan (June 2025)' },
+      { src: 'web/photo24.webp', caption: 'Cityscapes of Milan (June 2025)' },
+      { src: 'web/photo25.webp', caption: 'Bocconi University, Milan (June 2025)' },
+      { src: 'web/photo26.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
+      { src: 'web/photo27.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
+      { src: 'web/photo28.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
+      { src: 'web/photo29.webp', caption: 'Cityscapes of Milan (June 2025)' },
+      { src: 'web/photo30.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
+      { src: 'web/photo31.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
+      { src: 'web/photo32.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
+      { src: 'web/photo33.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
+      { src: 'web/photo34.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
+      { src: 'web/photo35.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
+      { src: 'web/photo36.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
+      { src: 'web/photo37.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
+      { src: 'web/photo38.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
+      { src: 'web/photo39.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
+      { src: 'web/photo40.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
+      { src: 'web/photo41.webp', caption: 'Fondazione Prada, Milan (June 2025)' }
     ];
 
-    function shuffle(arr) {
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
-    }
-
-    function createFigure({ src, caption }) {
-      const fig = document.createElement('figure');
-      fig.className = 'photo-item';
-
-      const container = document.createElement('div');
-      container.className = 'img-container';
-      const img = document.createElement('img');
-      img.dataset.src = src;
-      img.alt = caption;
-      img.className = 'lazy';
-      container.appendChild(img);
-      fig.appendChild(container);
-
-      const cap = document.createElement('figcaption');
-      cap.textContent = caption;
-      fig.appendChild(cap);
-
-      return fig;
-    }
-
-    function lazyLoad() {
-      const options = { rootMargin: '100px', threshold: 0.1 };
-      const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.dataset.src;
-            img.addEventListener('load', () => img.classList.add('loaded'));
-            obs.unobserve(img);
-          }
-        });
-      }, options);
-      document.querySelectorAll('img.lazy').forEach(img => observer.observe(img));
-    }
-
+    // Shuffle and create gallery
     document.addEventListener('DOMContentLoaded', () => {
       const gallery = document.getElementById('gallery');
-      shuffle(images).forEach(item => gallery.appendChild(createFigure(item)));
-      lazyLoad();
+      images.sort(() => Math.random() - 0.5).forEach(item => {
+        const fig = document.createElement('figure');
+        fig.className = 'photo-item';
+
+        const container = document.createElement('div');
+        container.className = 'img-container';
+
+        const img = document.createElement('img');
+        img.src = item.src;
+        img.alt = item.caption;
+        img.loading = 'lazy';
+        img.addEventListener('load', () => img.classList.add('loaded'));
+
+        container.appendChild(img);
+        fig.appendChild(container);
+
+        const cap = document.createElement('figcaption');
+        cap.textContent = item.caption;
+        fig.appendChild(cap);
+
+        gallery.appendChild(fig);
+      });
     });
   </script>
 </body>
