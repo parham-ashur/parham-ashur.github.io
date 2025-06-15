@@ -61,7 +61,7 @@
 <body>
   <!-- include your site’s nav/header here -->
   <main>
-    <h1></h1>
+    <h1>My Photography</h1>
     <div class="gallery" id="gallery"></div>
   </main>
   <!-- include your site’s footer here -->
@@ -115,10 +115,17 @@
       { src: 'web/photo47.webp', caption: 'Cityscapes of Lugano (June 2025)' }
     ];
 
-    // Shuffle and create gallery
     document.addEventListener('DOMContentLoaded', () => {
       const gallery = document.getElementById('gallery');
-      images.sort(() => Math.random() - 0.5).forEach(item => {
+
+      // 1) Clone & shuffle
+      const shuffled = [...images].sort(() => Math.random() - 0.5);
+
+      // 2) Take only the first 20
+      const randomTwenty = shuffled.slice(0, 20);
+
+      // 3) Render those 20
+      randomTwenty.forEach(item => {
         const fig = document.createElement('figure');
         fig.className = 'photo-item';
 
