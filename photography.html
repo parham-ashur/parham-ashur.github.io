@@ -67,62 +67,24 @@
   <!-- include your site’s footer here -->
 
   <script>
-    // Full list of images and captions
-    const images = [
-      { src: 'web/photo1.webp', caption: 'Bocconi University, Milan (May 2025)' },
-      { src: 'web/photo2.webp', caption: 'Bocconi University, Milan (May 2025)' },
-      { src: 'web/photo3.webp', caption: 'Bocconi University, Milan (May 2025)' },
-      { src: 'web/photo4.webp', caption: 'Bocconi University, Milan (May 2025)' },
-      { src: 'web/photo5.webp', caption: 'Street in Milan (May 2025)' },
-      { src: 'web/photo6.webp', caption: 'Museo del Novecento (May 2025)' },
-      { src: 'web/photo7.webp', caption: 'Museo del Novecento (May 2025)' },
-      { src: 'web/photo8.webp', caption: 'Museo del Novecento (May 2025)' },
-      { src: 'web/photo9.webp', caption: 'Museo del Novecento (May 2025)' },
-      { src: 'web/photo10.webp', caption: 'Pinacoteca di Brera (May 2025)' },
-      { src: 'web/photo11.webp', caption: 'Villa Necchi Campiglio (May 2025)' },
-      { src: 'web/photo13.webp', caption: 'Milan Conservatory (May 2025)' },
-      { src: 'web/photo14.webp', caption: 'Milan Conservatory (May 2025)' },
-      { src: 'web/photo15.webp', caption: 'Lake Como (June 2025)' },
-      { src: 'web/photo16.webp', caption: 'Lake Como (June 2025)' },
-      { src: 'web/photo17.webp', caption: 'Lake Como (June 2025)' },
-      { src: 'web/photo18.webp', caption: 'Lake Como (June 2025)' },
-      { src: 'web/photo19.webp', caption: 'Museo Pinacoteca Civica (June 2025)' },
-      { src: 'web/photo20.webp', caption: 'Museo Pinacoteca Civica (June 2025)' },
-      { src: 'web/photo21.webp', caption: 'Cityscapes of Milan (June 2025)' },
-      { src: 'web/photo22.webp', caption: 'Cityscapes of Milan (June 2025)' },
-      { src: 'web/photo23.webp', caption: 'Cityscapes of Milan (June 2025)' },
-      { src: 'web/photo24.webp', caption: 'Cityscapes of Milan (June 2025)' },
-      { src: 'web/photo25.webp', caption: 'Bocconi University, Milan (June 2025)' },
-      { src: 'web/photo26.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: 'web/photo27.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: 'web/photo28.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: 'web/photo29.webp', caption: 'Cityscapes of Milan (June 2025)' },
-      { src: 'web/photo30.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: 'web/photo31.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: 'web/photo32.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: 'web/photo33.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: 'web/photo34.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: 'web/photo35.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: 'web/photo36.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: 'web/photo37.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: 'web/photo38.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: 'web/photo39.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: 'web/photo40.webp', caption: 'Fondazione Prada, Milan (June 2025)' },
-      { src: 'web/photo42.webp', caption: 'Bocconi University, Milan (June 2025)' },
-      { src: 'web/photo43.webp', caption: 'Lugano (June 2025)' },
-      { src: 'web/photo44.webp', caption: 'Lugano Funiculaire (June 2025)' },
-      { src: 'web/photo45.webp', caption: 'Train to Lugano (June 2025)' },
-      { src: 'web/photo47.webp', caption: 'Cityscapes of Lugano (June 2025)' }
-    ];
-
-    document.addEventListener('DOMContentLoaded', () => {
+    // Gallery data lives in web/photos.json (managed by publish.py).
+    // To add photos: drop them in your source folder, then run `python3 publish.py`.
+    document.addEventListener('DOMContentLoaded', async () => {
       const gallery = document.getElementById('gallery');
 
-      // 1) Clone & shuffle
-      const shuffled = [...images].sort(() => Math.random() - 0.5);
+      // Load the photo manifest
+      let images = [];
+      try {
+        const res = await fetch('web/photos.json', { cache: 'no-cache' });
+        images = await res.json();
+      } catch (err) {
+        console.error('Could not load web/photos.json', err);
+        return;
+      }
 
-      // 2) Take only the first 20
-      const randomTwenty = shuffled.slice(0, 20);
+      // Keep only photos flagged for display, then shuffle and take the first 20
+      const visible = images.filter(item => item.show !== false);
+      const randomTwenty = [...visible].sort(() => Math.random() - 0.5).slice(0, 20);
 
       // 3) Render those 20
       randomTwenty.forEach(item => {
