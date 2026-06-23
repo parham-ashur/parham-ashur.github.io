@@ -274,5 +274,107 @@
     "caption": "Cityscapes of Lugano (June 2025)",
     "original": "047_june2025_lugano",
     "show": true
+  },
+  {
+    "src": "web/photo48.webp",
+    "caption": "Cityscapes of Milan (June 2025)",
+    "original": "030_june2025_milan",
+    "show": true
+  },
+  {
+    "src": "web/photo49.webp",
+    "caption": "Home (July 2025)",
+    "original": "048_july2025_home",
+    "show": true
+  },
+  {
+    "src": "web/photo50.webp",
+    "caption": "Athens (July 2025)",
+    "original": "049_july2025_athens",
+    "show": true
+  },
+  {
+    "src": "web/photo51.webp",
+    "caption": "Acropolis Museum (July 2025)",
+    "original": "050_july2025_archopolis museum",
+    "show": true
+  },
+  {
+    "src": "web/photo52.webp",
+    "caption": "Acropolis Museum (July 2025)",
+    "original": "051_july2025_archopolis museum",
+    "show": true
+  },
+  {
+    "src": "web/photo53.webp",
+    "caption": "Acropolis Museum (July 2025)",
+    "original": "052_july2025_archopolis museum",
+    "show": true
+  },
+  {
+    "src": "web/photo54.webp",
+    "caption": "Acropolis Museum (July 2025)",
+    "original": "053_july2025_archopolis museum",
+    "show": true
+  },
+  {
+    "src": "web/photo55.webp",
+    "caption": "Acropolis (July 2025)",
+    "original": "054_july2025_archopolis",
+    "show": true
+  },
+  {
+    "src": "web/photo56.webp",
+    "caption": "Paros (July 2025)",
+    "original": "055_july2025_paros island",
+    "show": true
+  },
+  {
+    "src": "web/photo57.webp",
+    "caption": "Antiparos (July 2025)",
+    "original": "056_july2025_antiparos island",
+    "show": true
+  },
+  {
+    "src": "web/photo58.webp",
+    "caption": "Antiparos (July 2025)",
+    "original": "057_july2025_antiparos island",
+    "show": true
+  },
+  {
+    "src": "web/photo59.webp",
+    "caption": "Paros (July 2025)",
+    "original": "058_july2025_paros island",
+    "show": true
+  },
+  {
+    "src": "web/photo60.webp",
+    "caption": "Allos (August 2025)",
+    "original": "059_aug2025_allos",
+    "show": true
+  },
+  {
+    "src": "web/photo61.webp",
+    "caption": "Venice (October 2025)",
+    "original": "060_oct2025_venice",
+    "show": true
+  },
+  {
+    "src": "web/photo62.webp",
+    "caption": "Venice (October 2025)",
+    "original": "061_oct2025_venice",
+    "show": true
+  },
+  {
+    "src": "web/photo63.webp",
+    "caption": "Burano (October 2025)",
+    "original": "062_oct2025_burano",
+    "show": true
+  },
+  {
+    "src": "web/photo64.webp",
+    "caption": "Antibes (November 2025)",
+    "original": "063_nov2025_antibes",
+    "show": true
   }
 ]
