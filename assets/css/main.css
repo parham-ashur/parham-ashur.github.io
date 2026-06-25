@@ -3331,3 +3331,47 @@ input, select, textarea {
 			}
 
 	}*/
+
+
+/* Custom additions (Parham) */
+
+	html {
+		scroll-behavior: smooth;
+	}
+
+	#updates .work-item {
+		box-sizing: border-box;
+		height: 100%;
+		background: #fbfbfb;
+		border: solid 1px #ededed;
+		border-radius: 6px;
+		padding: 1.25em 1.5em;
+		-webkit-transition: -webkit-transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+		transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+	}
+
+		#updates .work-item:hover {
+			-webkit-transform: translateY(-3px);
+			transform: translateY(-3px);
+			box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+		}
+
+	#research h3 {
+		color: #49bf9d;
+		font-size: 0.9em;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		margin: 1.5em 0 1em 0;
+	}
+
+	#research .research-list {
+		list-style: none;
+		padding: 0;
+	}
+
+		#research .research-list li {
+			margin: 0 0 1em 0;
+			padding: 0 0 0 1em;
+			border-left: solid 3px #49bf9d;
+			line-height: 1.6em;
+		}
