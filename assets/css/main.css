@@ -3438,7 +3438,7 @@ input, select, textarea {
 	/* --- Text texture ------------------------------------------------ */
 
 	html {
-		font-size: 17px;
+		font-size: 18px;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		text-rendering: optimizeLegibility;
@@ -3447,8 +3447,8 @@ input, select, textarea {
 	body, input, select, textarea {
 		font-family: var(--font-serif);
 		color: var(--slate);
-		font-size: 18px;
-		line-height: 1.65;
+		font-size: 20px;
+		line-height: 1.6;
 		letter-spacing: 0.003em;
 		font-feature-settings: "kern", "liga", "clig";
 	}
@@ -3711,10 +3711,9 @@ input, select, textarea {
 
 	/* --- Joy / photography invitation card -------------------------- */
 
-	#joy {
-		background: var(--mist);
-		border-radius: 20px;
-		padding: 2.4em 2.4em 2.2em 2.4em;
+	#main > #joy {
+		border-top: 1px solid var(--hairline);
+		padding-top: 4em;
 	}
 
 	#joy h2 {
@@ -3813,12 +3812,12 @@ input, select, textarea {
 
 	@media screen and (max-width: 736px) {
 		body, input, select, textarea {
-			font-size: 17px;
+			font-size: 18px;
 		}
 		#main > section {
 			margin-top: 3.25em;
 		}
-		#joy {
-			padding: 1.8em;
+		#main > #joy {
+			padding-top: 3em;
 		}
 	}

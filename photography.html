@@ -101,7 +101,7 @@
 			transform-style: preserve-3d;
 			transition: -webkit-transform 0.74s var(--ease), transform 0.74s var(--ease), box-shadow 0.3s var(--ease);
 			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
-			border-radius: 12px;
+			border-radius: 4px;
 		}
 		.tile.swap .flipper {
 			-webkit-transform: rotateX(180deg);
@@ -114,7 +114,7 @@
 			inset: 0;
 			-webkit-backface-visibility: hidden;
 			backface-visibility: hidden;
-			border-radius: 12px;
+			border-radius: 4px;
 			overflow: hidden;
 			background: var(--mist);
 		}
@@ -136,18 +136,17 @@
 		.cap {
 			position: absolute;
 			left: 0; right: 0; bottom: 0;
-			padding: 1.4em 0.85em 0.7em 0.85em;
+			padding: 1.7em 0.85em 0.7em 0.85em;
 			font-family: var(--font-ui);
-			font-size: 0.76rem;
+			font-weight: 500;
+			font-size: 0.82rem;
 			line-height: 1.3;
 			color: #fff;
-			background: linear-gradient(to top, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0));
-			opacity: 0;
-			transition: opacity 0.3s var(--ease);
+			background: linear-gradient(to top, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.18) 60%, rgba(0, 0, 0, 0));
+			opacity: 1;
 			pointer-events: none;
 		}
-		.tile:hover .face .cap, .tile:focus-visible .face .cap { opacity: 1; }
-		.tile:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 12px; }
+		.tile:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 4px; }
 
 		/* Lightbox */
 		.lightbox {
@@ -227,10 +226,6 @@
 		<nav class="photo-nav">
 			<a class="back" href="index.html"><span class="arrow">&larr;</span> Parham Ashur</a>
 		</nav>
-		<div class="photo-head">
-			<h1 class="photo-title">Photography</h1>
-			<p class="photo-sub">A living contact sheet &mdash; bold lines and strong contrasts. It reshuffles itself, so no two visits look the same.</p>
-		</div>
 		<div class="wall" id="wall" aria-label="Photo gallery"></div>
 	</div>
 
@@ -411,10 +406,9 @@
 
 				// Start the quiet, ambient reshuffle once settled.
 				if (!reduce && pool.length > WALL) {
-					var firstDelay = 2600 + tiles.length * 42;
 					setTimeout(function () {
-						setInterval(tick, 2400);
-					}, firstDelay);
+						setInterval(tick, 5000);
+					}, 5000);
 				}
 			})
 			.catch(function (err) { console.error('Could not load web/photos.json', err); });
