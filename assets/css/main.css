@@ -3339,21 +3339,60 @@ input, select, textarea {
 		scroll-behavior: smooth;
 	}
 
-	#updates .work-item {
-		box-sizing: border-box;
-		height: 100%;
-		background: #fbfbfb;
-		border: solid 1px #ededed;
-		border-radius: 6px;
-		padding: 1.25em 1.5em;
-		-webkit-transition: -webkit-transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-		transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+	#updates .timeline {
+		margin: 1.5em 0 0 0;
 	}
 
-		#updates .work-item:hover {
-			-webkit-transform: translateY(-3px);
-			transform: translateY(-3px);
-			box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+	#updates .t-group {
+		display: -webkit-flex;
+		display: flex;
+		-webkit-align-items: flex-start;
+		align-items: flex-start;
+	}
+
+	#updates .t-year {
+		-webkit-flex: 0 0 3.5em;
+		flex: 0 0 3.5em;
+		padding-top: 0.05em;
+		color: #49bf9d;
+		font-weight: 600;
+		font-size: 0.9em;
+		letter-spacing: 0.03em;
+	}
+
+	#updates .t-items {
+		-webkit-flex: 1 1 auto;
+		flex: 1 1 auto;
+		min-width: 0;
+		margin-left: 0.5em;
+		padding: 0 0 1.6em 1.5em;
+		border-left: solid 2px #ededed;
+	}
+
+		#updates .t-group:last-child .t-items {
+			padding-bottom: 0;
+		}
+
+	#updates .t-item {
+		margin: 0 0 1em 0;
+	}
+
+		#updates .t-item:last-child {
+			margin-bottom: 0;
+		}
+
+		#updates .t-item h3 {
+			margin: 0 0 0.15em 0;
+			color: #555555;
+			font-size: 1em;
+			line-height: 1.35em;
+		}
+
+		#updates .t-item p {
+			margin: 0;
+			color: #8a8a8a;
+			font-size: 0.85em;
+			line-height: 1.5em;
 		}
 
 	#research h3 {
