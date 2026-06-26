@@ -1,115 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Photography</title>
-  <!-- link to your global stylesheet -->
-  <link rel="stylesheet" href="css/style.css">
-  <!-- gallery-specific styles -->
-  <style>
-    .gallery {
-      display: grid;
-      gap: 10px;
-    }
-    @media (min-width: 992px) {
-      .gallery { grid-template-columns: repeat(4, 1fr); }
-    }
-    @media (min-width: 768px) and (max-width: 991px) {
-      .gallery { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 767px) {
-      .gallery { grid-template-columns: 1fr; }
-    }
-    /* layout figure and caption */
-    .gallery figure {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 0;
-    }
-    /* Container for image placeholder and enforce aspect ratio */
-    .img-container {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 1/1;
-      overflow: hidden;
-      background: #f0f0f0;
-      border-radius: 4px;
-    }
-    .img-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      opacity: 0;
-      transition: opacity 0.5s ease-in;
-    }
-    .img-container img.loaded {
-      opacity: 1;
-    }
-    .gallery figcaption {
-      margin-top: 0.5em;
-      font-family: 'Georgia', serif;
-      font-size: 0.9rem;
-      font-style: italic;
-      color: #555;
-      text-align: center;
-    }
-  </style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Photography · Parham Ashur</title>
+	<meta name="description" content="A living contact sheet — bold lines and strong contrasts.">
+
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+
+	<!-- Shared design tokens + base type -->
+	<link rel="stylesheet" href="assets/css/main.css">
+
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+
+	<style>
+		body { background: var(--paper); }
+
+		.photo-page {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: clamp(2rem, 5vw, 4.5rem) clamp(1.1rem, 4vw, 3rem) 5rem;
+		}
+
+		.photo-nav { margin: 0 0 clamp(1.6rem, 4vw, 2.6rem) 0; }
+
+		.photo-nav .back {
+			font-family: var(--font-ui);
+			font-weight: 500;
+			font-size: 0.95rem;
+			color: var(--ink);
+			border-bottom: 0;
+		}
+		.photo-nav .back .arrow {
+			display: inline-block;
+			transition: transform 0.28s var(--ease);
+		}
+		.photo-nav .back:hover { color: var(--ink) !important; }
+		.photo-nav .back:hover .arrow { transform: translateX(-5px); }
+
+		.photo-head { margin: 0 0 clamp(1.8rem, 4vw, 3rem) 0; }
+		.photo-title {
+			font-family: var(--font-ui);
+			font-weight: 600;
+			letter-spacing: -0.035em;
+			font-size: clamp(2.2rem, 1.2rem + 4vw, 3.6rem);
+			line-height: 1.02;
+			color: var(--ink);
+			margin: 0;
+		}
+		.photo-sub {
+			font-family: var(--font-serif);
+			font-style: italic;
+			color: var(--slate);
+			font-size: clamp(1.05rem, 1rem + 0.4vw, 1.25rem);
+			margin: 0.55rem 0 0 0;
+			max-width: 32em;
+		}
+
+		/* The wall */
+		.wall {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 14px;
+		}
+		@media (max-width: 900px) { .wall { grid-template-columns: repeat(3, 1fr); } }
+		@media (max-width: 600px) { .wall { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
+
+		.tile {
+			position: relative;
+			aspect-ratio: 1 / 1;
+			-webkit-perspective: 1000px;
+			perspective: 1000px;
+			cursor: pointer;
+			-webkit-transform-origin: top center;
+			transform-origin: top center;
+			/* Load-in is a pure CSS animation (no requestAnimationFrame
+			   dependency, so it survives background/inactive tabs). */
+			-webkit-animation: tileIn 0.7s var(--ease) both;
+			animation: tileIn 0.7s var(--ease) both;
+			-webkit-animation-delay: calc(var(--d, 0) * 42ms);
+			animation-delay: calc(var(--d, 0) * 42ms);
+		}
+		@-webkit-keyframes tileIn {
+			from { opacity: 0; -webkit-transform: translateY(16px) rotateX(-24deg); }
+			to   { opacity: 1; -webkit-transform: none; }
+		}
+		@keyframes tileIn {
+			from { opacity: 0; transform: translateY(16px) rotateX(-24deg); }
+			to   { opacity: 1; transform: none; }
+		}
+
+		.flipper {
+			position: absolute;
+			inset: 0;
+			-webkit-transform-style: preserve-3d;
+			transform-style: preserve-3d;
+			transition: -webkit-transform 0.74s var(--ease), transform 0.74s var(--ease), box-shadow 0.3s var(--ease);
+			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+			border-radius: 12px;
+		}
+		.tile.swap .flipper {
+			-webkit-transform: rotateX(180deg);
+			transform: rotateX(180deg);
+		}
+		.tile:hover .flipper { box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18); }
+
+		.face {
+			position: absolute;
+			inset: 0;
+			-webkit-backface-visibility: hidden;
+			backface-visibility: hidden;
+			border-radius: 12px;
+			overflow: hidden;
+			background: var(--mist);
+		}
+		.face.back { -webkit-transform: rotateX(180deg); transform: rotateX(180deg); }
+
+		.face img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+			opacity: 0;
+			-webkit-transform: scale(1.001);
+			transform: scale(1.001);
+			transition: opacity 0.6s ease, transform 0.5s var(--ease);
+		}
+		.face img.loaded { opacity: 1; }
+		.tile:hover .face img.loaded { -webkit-transform: scale(1.045); transform: scale(1.045); }
+
+		.cap {
+			position: absolute;
+			left: 0; right: 0; bottom: 0;
+			padding: 1.4em 0.85em 0.7em 0.85em;
+			font-family: var(--font-ui);
+			font-size: 0.76rem;
+			line-height: 1.3;
+			color: #fff;
+			background: linear-gradient(to top, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0));
+			opacity: 0;
+			transition: opacity 0.3s var(--ease);
+			pointer-events: none;
+		}
+		.tile:hover .face .cap, .tile:focus-visible .face .cap { opacity: 1; }
+		.tile:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 12px; }
+
+		/* Lightbox */
+		.lightbox {
+			position: fixed;
+			inset: 0;
+			z-index: 100;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-align-items: center;
+			align-items: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			padding: clamp(1rem, 4vw, 3rem);
+			background: rgba(0, 0, 0, 0.92);
+			-webkit-backdrop-filter: blur(8px);
+			backdrop-filter: blur(8px);
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 0.32s var(--ease);
+		}
+		.lightbox.open { opacity: 1; pointer-events: auto; }
+		.lb-figure { margin: 0; text-align: center; max-width: 92vw; }
+		.lb-figure img {
+			max-width: 92vw;
+			max-height: 82vh;
+			border-radius: 10px;
+			box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+			-webkit-transform: scale(0.96);
+			transform: scale(0.96);
+			transition: transform 0.32s var(--ease);
+		}
+		.lightbox.open .lb-figure img { -webkit-transform: scale(1); transform: scale(1); }
+		.lb-cap {
+			font-family: var(--font-serif);
+			font-style: italic;
+			color: rgba(255, 255, 255, 0.82);
+			font-size: 0.95rem;
+			margin-top: 0.9rem;
+		}
+		.lb-close {
+			position: absolute;
+			top: clamp(0.8rem, 2vw, 1.6rem);
+			right: clamp(0.8rem, 2vw, 1.6rem);
+			width: 2.5rem; height: 2.5rem;
+			border: 1px solid rgba(255, 255, 255, 0.22);
+			border-radius: 999px;
+			/* iOS-style frosted glass */
+			background: rgba(255, 255, 255, 0.12);
+			-webkit-backdrop-filter: blur(16px) saturate(150%);
+			backdrop-filter: blur(16px) saturate(150%);
+			color: #fff;
+			font-size: 1.4rem;
+			line-height: 1;
+			cursor: pointer;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+			transition: background 0.2s var(--ease), -webkit-transform 0.2s var(--ease), transform 0.2s var(--ease);
+		}
+		.lb-close:hover { background: rgba(255, 255, 255, 0.24); -webkit-transform: scale(1.06); transform: scale(1.06); }
+
+		@media (prefers-reduced-motion: reduce) {
+			.tile {
+				opacity: 1;
+				-webkit-transform: none;
+				transform: none;
+				transition: none;
+				-webkit-animation: none;
+				animation: none;
+			}
+			.flipper, .tile.swap .flipper { transition: none; -webkit-transform: none; transform: none; }
+			.face img, .tile:hover .face img.loaded { transition: opacity 0.3s ease; -webkit-transform: none; transform: none; }
+			.lightbox, .lb-figure img { transition: none; }
+		}
+	</style>
 </head>
 <body>
-  <!-- include your site’s nav/header here -->
-  <main>
-    <h1></h1>
-    <div class="gallery" id="gallery"></div>
-  </main>
-  <!-- include your site’s footer here -->
+	<div class="photo-page">
+		<nav class="photo-nav">
+			<a class="back" href="index.html"><span class="arrow">&larr;</span> Parham Ashur</a>
+		</nav>
+		<div class="photo-head">
+			<h1 class="photo-title">Photography</h1>
+			<p class="photo-sub">A living contact sheet &mdash; bold lines and strong contrasts. It reshuffles itself, so no two visits look the same.</p>
+		</div>
+		<div class="wall" id="wall" aria-label="Photo gallery"></div>
+	</div>
 
-  <script>
-    // Gallery data lives in web/photos.json (managed by publish.py).
-    // To add photos: drop them in your source folder, then run `python3 publish.py`.
-    document.addEventListener('DOMContentLoaded', async () => {
-      const gallery = document.getElementById('gallery');
+	<div class="lightbox" id="lightbox" aria-hidden="true">
+		<button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+		<figure class="lb-figure">
+			<img id="lbImg" alt="">
+			<figcaption class="lb-cap" id="lbCap"></figcaption>
+		</figure>
+	</div>
 
-      // Load the photo manifest
-      let images = [];
-      try {
-        const res = await fetch('web/photos.json', { cache: 'no-cache' });
-        images = await res.json();
-      } catch (err) {
-        console.error('Could not load web/photos.json', err);
-        return;
-      }
+	<script>
+	(function () {
+		'use strict';
 
-      // Keep only photos flagged for display, then shuffle and take the first 20
-      const visible = images.filter(item => item.show !== false);
-      const randomTwenty = [...visible].sort(() => Math.random() - 0.5).slice(0, 20);
+		var WALL = 20;
+		var reduce = window.matchMedia &&
+			window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      // 3) Render those 20
-      randomTwenty.forEach(item => {
-        const fig = document.createElement('figure');
-        fig.className = 'photo-item';
+		var wallEl = document.getElementById('wall');
+		var pool = [];          // every visible photo
+		var tiles = [];         // { el, flipper, faces:[front,back], imgs, caps, current }
+		var visibleSrc = {};    // src -> true for photos currently on a visible face
+		var hovered = null;     // index of hovered tile (skip when flipping)
 
-        const container = document.createElement('div');
-        container.className = 'img-container';
+		function shuffle(a) {
+			for (var i = a.length - 1; i > 0; i--) {
+				var j = Math.floor(Math.random() * (i + 1));
+				var t = a[i]; a[i] = a[j]; a[j] = t;
+			}
+			return a;
+		}
 
-        const img = document.createElement('img');
-        img.src = item.src;
-        img.alt = item.caption;
-        img.loading = 'lazy';
-        img.addEventListener('load', () => img.classList.add('loaded'));
+		// Pick a pooled photo not currently visible anywhere.
+		function pickPhoto() {
+			var candidates = [];
+			for (var i = 0; i < pool.length; i++) {
+				if (!visibleSrc[pool[i].src]) candidates.push(pool[i]);
+			}
+			if (!candidates.length) return null;
+			return candidates[Math.floor(Math.random() * candidates.length)];
+		}
 
-        container.appendChild(img);
-        fig.appendChild(container);
+		function paintFace(face, photo) {
+			var img = face.querySelector('img');
+			var cap = face.querySelector('.cap');
+			img.classList.remove('loaded');
+			img.alt = photo.caption || '';
+			cap.textContent = photo.caption || '';
+			img.onload = function () { img.classList.add('loaded'); };
+			img.src = photo.src;
+			return img;
+		}
 
-        const cap = document.createElement('figcaption');
-        cap.textContent = item.caption;
-        fig.appendChild(cap);
+		function makeFace(cls, photo) {
+			var face = document.createElement('div');
+			face.className = 'face ' + cls;
+			var img = document.createElement('img');
+			img.loading = 'lazy';
+			img.decoding = 'async';
+			var cap = document.createElement('div');
+			cap.className = 'cap';
+			face.appendChild(img);
+			face.appendChild(cap);
+			if (photo) paintFace(face, photo);
+			return face;
+		}
 
-        gallery.appendChild(fig);
-      });
-    });
-  </script>
+		function buildTile(photo, index) {
+			var el = document.createElement('figure');
+			el.className = 'tile';
+			el.style.setProperty('--d', index);
+			el.setAttribute('tabindex', '0');
+			el.setAttribute('role', 'button');
+			el.setAttribute('aria-label', photo.caption || 'Photograph');
+
+			var flipper = document.createElement('div');
+			flipper.className = 'flipper';
+			var front = makeFace('front', photo);
+			var back = makeFace('back', null);
+			flipper.appendChild(front);
+			flipper.appendChild(back);
+			el.appendChild(flipper);
+
+			var tile = { el: el, flipper: flipper, faces: [front, back], current: photo, locked: false };
+
+			el.addEventListener('mouseenter', function () { hovered = index; });
+			el.addEventListener('mouseleave', function () { if (hovered === index) hovered = null; });
+			el.addEventListener('click', function () { openLightbox(tile.current); });
+			el.addEventListener('keydown', function (e) {
+				if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(tile.current); }
+			});
+
+			visibleSrc[photo.src] = true;
+			return tile;
+		}
+
+		function flipTile(t) {
+			if (t.locked) return;
+			var photo = pickPhoto();
+			if (!photo) return;
+
+			var showingBack = t.el.classList.contains('swap');
+			var hiddenFace = showingBack ? t.faces[0] : t.faces[1];
+
+			var oldSrc = t.current.src;
+			t.locked = true;
+
+			var img = paintFace(hiddenFace, photo);
+			var go = function () {
+				delete visibleSrc[oldSrc];
+				visibleSrc[photo.src] = true;
+				t.current = photo;
+				t.el.setAttribute('aria-label', photo.caption || 'Photograph');
+				t.el.classList.toggle('swap');
+				setTimeout(function () { t.locked = false; }, 820);
+			};
+			// Flip once the incoming image is ready (or shortly anyway).
+			if (img.complete) { go(); }
+			else {
+				var done = false;
+				img.addEventListener('load', function () { if (!done) { done = true; go(); } });
+				setTimeout(function () { if (!done) { done = true; go(); } }, 600);
+			}
+		}
+
+		function tick() {
+			if (document.hidden) return;
+			// flip one random eligible tile
+			var order = shuffle(tiles.map(function (_, i) { return i; }));
+			for (var k = 0; k < order.length; k++) {
+				var i = order[k];
+				if (i === hovered || tiles[i].locked) continue;
+				flipTile(tiles[i]);
+				break;
+			}
+		}
+
+		/* --- Lightbox --- */
+		var lb = document.getElementById('lightbox');
+		var lbImg = document.getElementById('lbImg');
+		var lbCap = document.getElementById('lbCap');
+
+		function openLightbox(photo) {
+			lbImg.src = photo.src;
+			lbImg.alt = photo.caption || '';
+			lbCap.textContent = photo.caption || '';
+			lb.classList.add('open');
+			lb.setAttribute('aria-hidden', 'false');
+			document.documentElement.style.overflow = 'hidden';
+		}
+		function closeLightbox() {
+			lb.classList.remove('open');
+			lb.setAttribute('aria-hidden', 'true');
+			document.documentElement.style.overflow = '';
+		}
+		document.getElementById('lbClose').addEventListener('click', closeLightbox);
+		lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
+		document.addEventListener('keydown', function (e) {
+			if (e.key === 'Escape' && lb.classList.contains('open')) closeLightbox();
+		});
+
+		/* --- Init --- */
+		fetch('web/photos.json', { cache: 'no-cache' })
+			.then(function (r) { return r.json(); })
+			.then(function (data) {
+				pool = data.filter(function (x) { return x.show !== false; });
+				if (!pool.length) return;
+
+				var initial = shuffle(pool.slice()).slice(0, Math.min(WALL, pool.length));
+				initial.forEach(function (photo, i) {
+					var t = buildTile(photo, i);
+					tiles.push(t);
+					wallEl.appendChild(t.el);
+				});
+
+				// Load-in is handled by CSS animation (see .tile / @keyframes tileIn).
+
+				// Start the quiet, ambient reshuffle once settled.
+				if (!reduce && pool.length > WALL) {
+					var firstDelay = 2600 + tiles.length * 42;
+					setTimeout(function () {
+						setInterval(tick, 2400);
+					}, firstDelay);
+				}
+			})
+			.catch(function (err) { console.error('Could not load web/photos.json', err); });
+	})();
+	</script>
 </body>
 </html>
