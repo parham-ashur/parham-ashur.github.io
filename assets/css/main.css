@@ -3606,10 +3606,10 @@ input, select, textarea {
 	}
 
 	#one .hero-statement .hl {
-		font-family: var(--font-serif);
-		font-style: italic;
-		font-weight: 500;
-		letter-spacing: 0;
+		font-family: var(--font-ui);
+		font-style: normal;
+		font-weight: 600;
+		letter-spacing: -0.025em;
 		color: var(--teal);
 	}
 

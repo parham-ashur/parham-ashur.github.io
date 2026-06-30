@@ -23,7 +23,7 @@
 		.photo-page {
 			max-width: 1200px;
 			margin: 0 auto;
-			padding: clamp(2rem, 5vw, 4.5rem) clamp(1.1rem, 4vw, 3rem) 5rem;
+			padding: clamp(1.6rem, 4vw, 3rem) clamp(1.1rem, 4vw, 3rem) 1.5rem;
 		}
 
 		.photo-nav { margin: 0 0 clamp(1.6rem, 4vw, 2.6rem) 0; }
@@ -259,6 +259,14 @@
 			return a;
 		}
 
+		// Caption display: "Place YYYY" — drop the month and the parentheses.
+		function fmtCap(c) {
+			if (!c) return '';
+			var ym = c.match(/\((?:[A-Za-z.]+\s+)?(\d{4})\)/);
+			if (!ym) return c;
+			return c.replace(/\s*\((?:[A-Za-z.]+\s+)?\d{4}\)\s*/, ' ').trim() + ' ' + ym[1];
+		}
+
 		// Pick a pooled photo not currently visible anywhere.
 		function pickPhoto() {
 			var candidates = [];
@@ -388,24 +396,57 @@
 			if (e.key === 'Escape' && lb.classList.contains('open')) closeLightbox();
 		});
 
+		/* --- Responsive layout: fill the viewport, no scrolling, up to WALL --- */
+		var renderedCount = -1, renderedCols = -1;
+
+		function computeLayout() {
+			var vw = window.innerWidth;
+			var cols = vw < 600 ? 2 : (vw < 900 ? 3 : 4);
+			var gap = vw < 600 ? 10 : 14;
+			var wallWidth = wallEl.clientWidth || vw;
+			var tileSize = (wallWidth - (cols - 1) * gap) / cols;
+			var top = wallEl.getBoundingClientRect().top;
+			var avail = window.innerHeight - top - 40;
+			var rows = Math.max(1, Math.floor((avail + gap) / (tileSize + gap)));
+			return { cols: cols, gap: gap, count: Math.min(cols * rows, WALL, pool.length) };
+		}
+
+		function render() {
+			var L = computeLayout();
+			if (L.count === renderedCount && L.cols === renderedCols) return;
+			renderedCount = L.count;
+			renderedCols = L.cols;
+			wallEl.style.gridTemplateColumns = 'repeat(' + L.cols + ', 1fr)';
+			wallEl.style.gap = L.gap + 'px';
+			wallEl.innerHTML = '';
+			tiles = [];
+			visibleSrc = {};
+			hovered = null;
+			shuffle(pool.slice()).slice(0, L.count).forEach(function (photo, i) {
+				var t = buildTile(photo, i);
+				tiles.push(t);
+				wallEl.appendChild(t.el);
+			});
+		}
+
 		/* --- Init --- */
 		fetch('web/photos.json', { cache: 'no-cache' })
 			.then(function (r) { return r.json(); })
 			.then(function (data) {
 				pool = data.filter(function (x) { return x.show !== false; });
 				if (!pool.length) return;
+				pool.forEach(function (p) { p.caption = fmtCap(p.caption); });
 
-				var initial = shuffle(pool.slice()).slice(0, Math.min(WALL, pool.length));
-				initial.forEach(function (photo, i) {
-					var t = buildTile(photo, i);
-					tiles.push(t);
-					wallEl.appendChild(t.el);
+				render();
+
+				var resizeTimer;
+				window.addEventListener('resize', function () {
+					clearTimeout(resizeTimer);
+					resizeTimer = setTimeout(render, 180);
 				});
 
-				// Load-in is handled by CSS animation (see .tile / @keyframes tileIn).
-
-				// Start the quiet, ambient reshuffle once settled.
-				if (!reduce && pool.length > WALL) {
+				// Quiet, ambient reshuffle: swap one tile every 5s.
+				if (!reduce) {
 					setTimeout(function () {
 						setInterval(tick, 5000);
 					}, 5000);
