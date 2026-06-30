@@ -72,7 +72,6 @@
 
 		.tile {
 			position: relative;
-			aspect-ratio: 1 / 1;
 			-webkit-perspective: 1000px;
 			perspective: 1000px;
 			cursor: pointer;
@@ -404,20 +403,33 @@
 			var cols = vw < 600 ? 2 : (vw < 900 ? 3 : 4);
 			var gap = vw < 600 ? 10 : 14;
 			var wallWidth = wallEl.clientWidth || vw;
-			var tileSize = (wallWidth - (cols - 1) * gap) / cols;
+			var tileW = (wallWidth - (cols - 1) * gap) / cols;
 			var top = wallEl.getBoundingClientRect().top;
-			var avail = window.innerHeight - top - 40;
-			var rows = Math.max(1, Math.floor((avail + gap) / (tileSize + gap)));
-			return { cols: cols, gap: gap, count: Math.min(cols * rows, WALL, pool.length) };
+			var page = wallEl.closest('.photo-page');
+			var padBottom = page ? (parseFloat(getComputedStyle(page).paddingBottom) || 0) : 0;
+			var availH = window.innerHeight - top - padBottom - 6;
+			// How many rows of square-ish tiles fit. If more than ~a third of a
+			// row is left over, add that row and let the tiles fill the height
+			// (slightly shorter than square) rather than wasting the space.
+			var raw = (availH + gap) / (tileW + gap);
+			var rows = Math.floor(raw);
+			var fill = (raw - rows) > 0.35;
+			if (fill) rows += 1;
+			rows = Math.max(1, rows);
+			var count = Math.min(cols * rows, WALL, pool.length);
+			rows = Math.ceil(count / cols);
+			var tileH = fill ? Math.max(150, (availH - (rows - 1) * gap) / rows) : tileW;
+			return { cols: cols, gap: gap, count: count, tileH: tileH };
 		}
 
 		function render() {
 			var L = computeLayout();
+			wallEl.style.gridTemplateColumns = 'repeat(' + L.cols + ', 1fr)';
+			wallEl.style.gridAutoRows = L.tileH + 'px';
+			wallEl.style.gap = L.gap + 'px';
 			if (L.count === renderedCount && L.cols === renderedCols) return;
 			renderedCount = L.count;
 			renderedCols = L.cols;
-			wallEl.style.gridTemplateColumns = 'repeat(' + L.cols + ', 1fr)';
-			wallEl.style.gap = L.gap + 'px';
 			wallEl.innerHTML = '';
 			tiles = [];
 			visibleSrc = {};
@@ -444,6 +456,9 @@
 					clearTimeout(resizeTimer);
 					resizeTimer = setTimeout(render, 180);
 				});
+				// Re-measure once fonts/layout settle (can shift how many rows fit).
+				window.addEventListener('load', render);
+				if (document.fonts && document.fonts.ready) document.fonts.ready.then(render);
 
 				// Quiet, ambient reshuffle: swap one tile every 5s.
 				if (!reduce) {
