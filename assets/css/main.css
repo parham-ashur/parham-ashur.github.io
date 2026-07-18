@@ -3254,8 +3254,6 @@ input, select, textarea {
   /* Header: full-screen background image */
   #header {
     height: 100vh; /* Full viewport height */
-    margin: 100;
-    padding: 100;
     position: relative;
     background-size: cover;
     background-image: linear-gradient(
@@ -3754,15 +3752,57 @@ input, select, textarea {
 
 	.reveal {
 		opacity: 0;
-		transform: translateY(18px);
-		transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
-		transition-delay: calc(var(--i, 0) * 80ms);
-		will-change: opacity, transform;
+		transform: translateY(12px);
+		transition: opacity 0.45s var(--ease), transform 0.45s var(--ease);
+		transition-delay: calc(var(--i, 0) * 60ms);
 	}
 
 	.reveal.is-visible {
 		opacity: 1;
 		transform: none;
+	}
+
+	/* --- Footer ------------------------------------------------------ */
+
+	#main .site-footer {
+		margin-top: 4.5em;
+		padding: 1.8em 0 0.5em 0;
+		border-top: 1px solid var(--hairline);
+	}
+
+	#main .site-footer .f-links {
+		display: -webkit-flex;
+		display: flex;
+		-webkit-flex-wrap: wrap;
+		flex-wrap: wrap;
+		gap: 0.4em 1.6em;
+		list-style: none;
+		margin: 0 0 0.9em 0;
+		padding: 0;
+	}
+
+	#main .site-footer .f-links li {
+		padding: 0;
+		margin: 0;
+	}
+
+	#main .site-footer .f-links a {
+		font-family: var(--font-ui);
+		font-weight: 500;
+		font-size: 0.9rem;
+		color: var(--slate);
+		border-bottom: 0;
+	}
+
+	#main .site-footer .f-links a:hover {
+		color: var(--teal-ink) !important;
+	}
+
+	#main .site-footer .f-copy {
+		font-family: var(--font-ui);
+		font-size: 0.78rem;
+		color: var(--slate-2);
+		margin: 0;
 	}
 
 	/* --- Focus + accessibility floor -------------------------------- */

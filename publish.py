@@ -24,10 +24,13 @@ WORKFLOW
      as soon as the push lands on GitHub Pages (~1 min).
 
 MANIFEST (web/photos.json) - one object per photo:
-      { "src": "web/photo48.webp", "caption": "Paris (December 2025)",
-        "original": "064_dec2025_paris", "show": true }
+      { "src": "web/photo48.webp", "thumb": "web/photo48-t.webp",
+        "caption": "Paris (December 2025)", "original": "064_dec2025_paris",
+        "show": true }
   - "original" is the source filename stem. It's how this script knows what's
     already published, so re-running is idempotent (never creates duplicates).
+  - "thumb" is a small variant used for the gallery tiles; the full-size "src"
+    is only loaded in the lightbox.
   - "show": false hides a photo from the gallery without deleting it.
 """
 
@@ -45,6 +48,8 @@ SOURCE_DIR = Path(os.environ.get("PHOTO_SRC", Path.home() / "Documents" / "photo
 EXTS = {".heic", ".jpg", ".jpeg", ".png"}
 MAX_SIDE = 2000          # longest edge in px (matches existing gallery images)
 QUALITY = 80             # webp quality
+THUMB_SIDE = 640         # longest edge for the tile thumbnails
+THUMB_QUALITY = 75       # webp quality for thumbnails
 
 MONTHS = {
     "jan": "January", "january": "January", "feb": "February", "february": "February",
@@ -118,10 +123,10 @@ def next_photo_number(manifest) -> int:
     return max(nums) + 1 if nums else 1
 
 
-def convert(src: Path, out: Path) -> None:
+def convert(src: Path, out: Path, side: int = MAX_SIDE, quality: int = QUALITY) -> None:
     subprocess.run(
         ["magick", str(src), "-auto-orient",
-         "-resize", f"{MAX_SIDE}x{MAX_SIDE}>", "-quality", str(QUALITY), str(out)],
+         "-resize", f"{side}x{side}>", "-quality", str(quality), str(out)],
         check=True,
     )
 
@@ -166,10 +171,12 @@ def main() -> int:
 
     print()
     for src, out_name, cap in planned:
+        thumb_name = out_name.replace(".webp", "-t.webp")
         convert(src, WEB / out_name)
-        manifest.append({"src": f"web/{out_name}", "caption": cap,
-                         "original": src.stem, "show": True})
-        print(f"converted {out_name}")
+        convert(src, WEB / thumb_name, THUMB_SIDE, THUMB_QUALITY)
+        manifest.append({"src": f"web/{out_name}", "thumb": f"web/{thumb_name}",
+                         "caption": cap, "original": src.stem, "show": True})
+        print(f"converted {out_name} (+ thumbnail)")
     MANIFEST.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n",
                         encoding="utf-8")
     print(f"\nUpdated {MANIFEST.relative_to(REPO)} ({len(planned)} added).")

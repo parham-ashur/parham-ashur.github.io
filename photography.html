@@ -6,6 +6,24 @@
 	<title>Photography · Parham Ashur</title>
 	<meta name="description" content="A living contact sheet — bold lines and strong contrasts.">
 
+	<!-- Social sharing -->
+	<link rel="canonical" href="https://parham-ashur.github.io/photography.html">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Photography · Parham Ashur">
+	<meta property="og:description" content="A living contact sheet — bold lines and strong contrasts.">
+	<meta property="og:url" content="https://parham-ashur.github.io/photography.html">
+	<meta property="og:image" content="https://parham-ashur.github.io/web/photo1.webp">
+	<meta name="twitter:card" content="summary_large_image">
+
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-EEDP6QR9G6"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-EEDP6QR9G6');
+	</script>
+
 	<!-- Fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,25 +59,6 @@
 		}
 		.photo-nav .back:hover { color: var(--ink) !important; }
 		.photo-nav .back:hover .arrow { transform: translateX(-5px); }
-
-		.photo-head { margin: 0 0 clamp(1.8rem, 4vw, 3rem) 0; }
-		.photo-title {
-			font-family: var(--font-ui);
-			font-weight: 600;
-			letter-spacing: -0.035em;
-			font-size: clamp(2.2rem, 1.2rem + 4vw, 3.6rem);
-			line-height: 1.02;
-			color: var(--ink);
-			margin: 0;
-		}
-		.photo-sub {
-			font-family: var(--font-serif);
-			font-style: italic;
-			color: var(--slate);
-			font-size: clamp(1.05rem, 1rem + 0.4vw, 1.25rem);
-			margin: 0.55rem 0 0 0;
-			max-width: 32em;
-		}
 
 		/* The wall */
 		.wall {
@@ -283,7 +282,9 @@
 			img.alt = photo.caption || '';
 			cap.textContent = photo.caption || '';
 			img.onload = function () { img.classList.add('loaded'); };
-			img.src = photo.src;
+			// Tiles only ever need the small variant; the full-size image
+			// is reserved for the lightbox.
+			img.src = photo.thumb || photo.src;
 			return img;
 		}
 
@@ -360,7 +361,7 @@
 		}
 
 		function tick() {
-			if (document.hidden) return;
+			if (document.hidden || lb.classList.contains('open')) return;
 			// flip one random eligible tile
 			var order = shuffle(tiles.map(function (_, i) { return i; }));
 			for (var k = 0; k < order.length; k++) {
