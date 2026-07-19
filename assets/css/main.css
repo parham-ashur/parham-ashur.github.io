@@ -3803,6 +3803,12 @@ input, select, textarea {
 		margin: 0;
 	}
 
+	#main .site-footer .f-sep {
+		color: var(--slate-2);
+		font-family: var(--font-ui);
+		font-size: 0.9rem;
+	}
+
 	#main .site-footer .f-links a {
 		font-family: var(--font-ui);
 		font-weight: 500;
