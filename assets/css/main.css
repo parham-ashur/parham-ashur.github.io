@@ -3086,7 +3086,9 @@ input, select, textarea {
 
 			#header {
 				background-attachment: scroll;
-				background-position: top left, center center;
+				/* Photo layer anchored near the top of the image so the
+				   face stays in frame when the header becomes a banner. */
+				background-position: top left, center 22%;
 				background-size: auto,		cover;
 				left: auto;
 				padding: 6em 4em;
@@ -3856,10 +3858,16 @@ input, select, textarea {
 	/* --- Responsive refinements ------------------------------------- */
 
 	@media screen and (max-width: 980px) {
+		/* Banner mode: taller top padding shows more of the portrait and
+		   drops the name onto the darkened bottom edge, off the face. */
+		#header {
+			padding: 10em 3em 2.2em 3em;
+		}
 		#header .inner {
 			-webkit-align-items: center;
 			align-items: center;
 			text-align: center;
+			margin: 0;
 		}
 		#header .h-links {
 			-webkit-justify-content: center;
