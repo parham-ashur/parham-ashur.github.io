@@ -3858,16 +3858,26 @@ input, select, textarea {
 	/* --- Responsive refinements ------------------------------------- */
 
 	@media screen and (max-width: 980px) {
-		/* Banner mode: taller top padding shows more of the portrait and
-		   drops the name onto the darkened bottom edge, off the face. */
+		/* Banner mode: tall viewport-based banner showing the portrait
+		   from the top, with the name pinned to the darkened bottom. */
 		#header {
-			padding: 10em 3em 2.2em 3em;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-flex-direction: column;
+			flex-direction: column;
+			-webkit-justify-content: flex-end;
+			justify-content: flex-end;
+			min-height: 74vh;
+			padding: 4em 3em 1.8em 3em;
+			background-position: top left, top center;
 		}
 		#header .inner {
 			-webkit-align-items: center;
 			align-items: center;
 			text-align: center;
 			margin: 0;
+			-webkit-flex-grow: 0;
+			flex-grow: 0;
 		}
 		#header .h-links {
 			-webkit-justify-content: center;
