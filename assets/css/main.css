@@ -3623,10 +3623,10 @@ input, select, textarea {
 
 	#one .lead {
 		font-family: var(--font-serif);
-		font-size: clamp(1.12rem, 1rem + 0.5vw, 1.32rem);
-		line-height: 1.55;
+		font-size: clamp(1.3rem, 1.12rem + 0.75vw, 1.6rem);
+		line-height: 1.5;
 		color: var(--slate);
-		max-width: 36em;
+		max-width: 32em;
 		margin: 0;
 	}
 
