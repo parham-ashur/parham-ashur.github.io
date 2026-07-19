@@ -3857,6 +3857,25 @@ input, select, textarea {
 
 	/* --- Responsive refinements ------------------------------------- */
 
+	/* Tall windows: balance the content column vertically — hero
+	   centered in the free space, footer at the viewport bottom. */
+	@media (min-width: 981px) {
+		#main {
+			min-height: 100vh;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-flex-direction: column;
+			flex-direction: column;
+		}
+		#main > #one {
+			margin-top: auto;
+			margin-bottom: auto;
+		}
+		#main > .site-footer {
+			margin-top: 4.5em;
+		}
+	}
+
 	/* Narrow side-panel range: keep the name on one line. */
 	@media screen and (min-width: 981px) and (max-width: 1280px) {
 		#header .h-name {
